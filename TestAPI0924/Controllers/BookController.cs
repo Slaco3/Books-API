@@ -2,11 +2,14 @@
 
 namespace TestAPI0924.Controllers
 {
-	public class BookController : Controller
+	[Route("api/[controller]")]
+	[ApiController]
+	public class BookController : ControllerBase
 	{
 		public IActionResult Index()
 		{
-			return View();
+
+
 		}
 	}
 }
