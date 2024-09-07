@@ -14,8 +14,18 @@ namespace TestAPI0924.Services
 		}
 
 		public async Task<Book> AddBookAsync(Book book)
-		{
+		{	
+			var author = _context.Authors.SingleOrDefault(a=>a.Id == book.Id);
+
+			if (author == null)
+			{
+				return null;
+			}
+
+			book.Author = author;
+
 			await _context.Books.AddAsync(book);
+
 			await _context.SaveChangesAsync();
 			return book;
 		}
@@ -52,7 +62,13 @@ namespace TestAPI0924.Services
 				return null;
 			}
 
-			updateBook.Author = book.Author;
+			var udpateAuthor = await _context.Authors.SingleOrDefaultAsync(a=>a.Id==book.AuthorId);
+			if (udpateAuthor is null)
+			{
+				return null;
+			}
+
+			updateBook.Author = udpateAuthor;
 			updateBook.Title = book.Title;
 			updateBook.Description = book.Description;
 			updateBook.Categorie = book.Categorie;

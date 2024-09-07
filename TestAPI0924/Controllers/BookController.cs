@@ -40,6 +40,11 @@ namespace TestAPI0924.Controllers
 		public async Task<ActionResult<Book>> AddBook(Book book)
 		{
 			var createdBook = await _bookService.AddBookAsync(book);
+
+			if (createdBook is null)
+			{
+				return BadRequest("Author not found or book could not be created.");
+			}
 			return Ok(createdBook);
 		}
 
