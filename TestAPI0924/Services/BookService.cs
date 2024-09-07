@@ -15,7 +15,7 @@ namespace TestAPI0924.Services
 
 		public async Task<Book> AddBookAsync(Book book)
 		{	
-			var author = _context.Authors.SingleOrDefault(a=>a.Id == book.Id);
+			var author = _context.Authors.SingleOrDefault(a=>a.Id == book.AuthorId);
 
 			if (author == null)
 			{
