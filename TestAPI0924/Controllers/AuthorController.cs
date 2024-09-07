@@ -60,7 +60,7 @@ namespace TestAPI0924.Controllers
 			var deletedAuthor =  await _authorServices.DeleteAuthorAsync(id);
 			if (deletedAuthor == null)
 			{
-				return BadRequest($"Unable to delete Author {id}";
+				return BadRequest($"Unable to delete Author {id}");
 			}
 			return Ok(deletedAuthor);
 		}
