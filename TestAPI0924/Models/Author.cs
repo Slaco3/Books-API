@@ -12,7 +12,7 @@ namespace TestAPI0924.Models
 
 		[Required]
 		public string LastName { get; set; } 
-		public virtual IEnumerable<Book> Books { get; set; }
+		public virtual IEnumerable<Book>? Books { get; set; }
 
 	}
 }
