@@ -40,7 +40,7 @@ namespace TestAPI0924.Services
 
 		public async Task<IEnumerable<Seller>> GetAllSellersAsync()
 		{
-			var sellers = await _context.Sellers.ToListAsync();
+			var sellers = await _context.Sellers.Include(s=>s.Books).ToListAsync();
 			return sellers;
 		}
 

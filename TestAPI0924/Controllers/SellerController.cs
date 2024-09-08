@@ -78,7 +78,7 @@ namespace TestAPI0924.Controllers
 		[HttpPost("{sellerId}/books/{bookId}")]
 		public async Task<ActionResult> AddBookToSeller(int sellerId, int bookId)
 		{
-			var seller = await _sellerService.AddBookToSellerAsync(bookId, sellerId);
+			var seller = await _sellerService.AddBookToSellerAsync(sellerId, bookId);
 			if (seller == null)
 			{
 				return BadRequest($"Impossible d'ajouter le livre ID {bookId} au seller ID {sellerId}");
