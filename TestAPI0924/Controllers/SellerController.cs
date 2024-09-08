@@ -12,7 +12,7 @@ namespace TestAPI0924.Controllers
 	{
 		private readonly ISellerService _sellerService;
 
-		public SellerController(SellerService sellerService)
+		public SellerController(ISellerService sellerService)
 		{
 			_sellerService = sellerService;
 		}
@@ -78,8 +78,11 @@ namespace TestAPI0924.Controllers
 		[HttpPost("{sellerId}/books/{bookId}")]
 		public async Task<ActionResult> AddBookToSeller(int sellerId, int bookId)
 		{
-			await _sellerService.AddBookToSellerAsync(bookId, sellerId);
-
+			var seller = await _sellerService.AddBookToSellerAsync(bookId, sellerId);
+			if (seller == null)
+			{
+				return BadRequest($"Impossible d'ajouter le livre ID {bookId} au seller ID {sellerId}");
+			}
 			return Ok(seller);
 		}
 
