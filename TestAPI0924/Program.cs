@@ -9,6 +9,7 @@ builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(build
 
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IAuthorServices, AuthorService>();
+builder.Services.AddScoped<ISellerService, SellerService>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

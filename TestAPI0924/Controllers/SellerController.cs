@@ -39,14 +39,14 @@ namespace TestAPI0924.Controllers
 		[HttpPost]
 		public async Task<ActionResult<Seller>> AddSeller(SellerDTO sellerDTO)
 		{
-			var createdSeller = await _sellerService.AddSellerAsync(sellerDTO);	
+			var createdSeller = await _sellerService.AddSellerAsync(sellerDTO);
 
 			return createdSeller;
 		}
 
 		[HttpPut("{id}")]
 		public async Task<ActionResult<Seller>> UpdateSeller(int id, SellerDTO sellerDTO)
-		{ 
+		{
 			if (id != sellerDTO.Id)
 			{
 				return BadRequest("Conflict between IDs");
@@ -73,4 +73,4 @@ namespace TestAPI0924.Controllers
 		}
 	}
 }
-}
+
