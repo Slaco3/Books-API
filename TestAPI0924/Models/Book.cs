@@ -26,7 +26,7 @@ namespace TestAPI0924.Models
 
 		public Author Author { get; set; }	
 
-		public virtual IEnumerable<Seller>? Sellers { get; set; }
+		public virtual ICollection<Seller>? Sellers { get; set; } = new HashSet<Seller>();
 	}
 }
 
