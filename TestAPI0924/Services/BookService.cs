@@ -52,13 +52,13 @@ namespace TestAPI0924.Services
 
 		public async Task<IEnumerable<Book>> GetAllBooksAsync()
 		{
-			var books = await _context.Books.ToListAsync();
+			var books = await _context.Books.Include(b=>b.Author).ToListAsync();
 			return books;
 		}
 
 		public async Task<Book> GetBookByIdAsync(int id)
 		{
-			var book = await _context.Books.SingleOrDefaultAsync(book=> book.Id == id);
+			var book = await _context.Books.Include(b=>b.Author).SingleOrDefaultAsync(book=> book.Id == id);
 			return book;
 		}
 
