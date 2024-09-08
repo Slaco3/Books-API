@@ -16,7 +16,7 @@ namespace TestAPI0924.Models
 		[Required]
 		public string city { get; set; }
 
-		public virtual IEnumerable <Book> books { get; set; }	
+		public virtual IEnumerable<Book>? books { get; set; }	
 
 	}
 }

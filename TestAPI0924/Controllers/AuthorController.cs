@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestAPI0924.Models;
+using TestAPI0924.Models.DTO;
 using TestAPI0924.Services;
 
 namespace TestAPI0924.Controllers
@@ -36,9 +37,9 @@ namespace TestAPI0924.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Author>> AddAuthor(Author author)
+		public async Task<ActionResult<Author>> AddAuthor(AuthorDTO authorDTO)
 		{
-			var createdAuthor = await _authorServices.AddAuthorAsync(author);
+			var createdAuthor = await _authorServices.AddAuthorAsync(authorDTO);
 			
 			return createdAuthor;
 		}
@@ -60,7 +61,7 @@ namespace TestAPI0924.Controllers
 			var deletedAuthor =  await _authorServices.DeleteAuthorAsync(id);
 			if (deletedAuthor == null)
 			{
-				return BadRequest($"Unable to delete Author {id}";
+				return BadRequest($"Unable to delete Author {id}");
 			}
 			return Ok(deletedAuthor);
 		}
