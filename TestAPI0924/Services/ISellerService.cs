@@ -11,5 +11,6 @@ namespace TestAPI0924.Services
 		public Task<Seller> DeleteSellerAsync(int id);
 		public Task<Seller> AddSellerAsync(SellerDTO sellerDTO);
 		public Task<Seller> UpdateSellerAsync(int id, SellerDTO sellerDTO);
+		public Task<Seller> AddBookToSellerAsync(int sellerId, int bookId);
 	}
 }

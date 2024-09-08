@@ -2,6 +2,7 @@
 using TestAPI0924.Models.DTO;
 using TestAPI0924.Models;
 using TestAPI0924.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace TestAPI0924.Controllers
 {
@@ -26,7 +27,7 @@ namespace TestAPI0924.Controllers
 
 
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Seller>> GetSellerbyId(int id)
+		public async Task<ActionResult<Seller>> GetSellerById(int id)
 		{
 			var seller = await _sellerService.GetSellerByIdAsync(id);
 			if (seller == null)
@@ -71,6 +72,17 @@ namespace TestAPI0924.Controllers
 			}
 			return Ok(deletedSeller);
 		}
+
+
+
+		[HttpPost("{sellerId}/books/{bookId}")]
+		public async Task<ActionResult> AddBookToSeller(int sellerId, int bookId)
+		{
+			await _sellerService.AddBookToSellerAsync(bookId, sellerId);
+
+			return Ok(seller);
+		}
+
 	}
 }
 

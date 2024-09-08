@@ -16,7 +16,7 @@ namespace TestAPI0924.Models
 		[Required]
 		public string City { get; set; }
 
-		public virtual IEnumerable<Book>? books { get; set; }	
+		public virtual ICollection<Book>? Books { get; set; } = new HashSet<Book>();
 
 	}
 }
