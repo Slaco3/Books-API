@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestAPI0924.Data;
 using TestAPI0924.Models;
+using TestAPI0924.Models.DTO;
 
 namespace TestAPI0924.Services
 {
@@ -13,16 +14,23 @@ namespace TestAPI0924.Services
 			_context = context;
 		}
 
-		public async Task<Book> AddBookAsync(Book book)
+		public async Task<Book> AddBookAsync(BookDTO bookDTO)
 		{	
-			var author = _context.Authors.SingleOrDefault(a=>a.Id == book.AuthorId);
+
+			var author = _context.Authors.SingleOrDefault(a=>a.Id == bookDTO.AuthorId);
 
 			if (author == null)
 			{
 				return null;
 			}
 
+			var book = new Book();
 			book.Author = author;
+			//book.AuthorId = author.Id;
+			book.Title = bookDTO.Title;
+			book.Description = bookDTO.Description;
+			book.Categorie = bookDTO.Categorie;
+			book.Created = bookDTO.Created;
 
 			await _context.Books.AddAsync(book);
 
