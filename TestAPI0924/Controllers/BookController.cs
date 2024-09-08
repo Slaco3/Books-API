@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TestAPI0924.Models;
+using TestAPI0924.Models.DTO;
 using TestAPI0924.Services;
 
 namespace TestAPI0924.Controllers
@@ -37,9 +38,14 @@ namespace TestAPI0924.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Book>> AddBook(Book book)
+		public async Task<ActionResult<Book>> AddBook(BookDTO bookDTO)
 		{
-			var createdBook = await _bookService.AddBookAsync(book);
+			var createdBook = await _bookService.AddBookAsync(bookDTO);
+
+			if (createdBook is null)
+			{
+				return BadRequest("Author not found or book could not be created.");
+			}
 			return Ok(createdBook);
 		}
 

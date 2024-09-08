@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestAPI0924.Data;
 using TestAPI0924.Models;
+using TestAPI0924.Models.DTO;
 
 namespace TestAPI0924.Services
 {
@@ -13,9 +14,26 @@ namespace TestAPI0924.Services
 			_context = context;
 		}
 
-		public async Task<Book> AddBookAsync(Book book)
-		{
+		public async Task<Book> AddBookAsync(BookDTO bookDTO)
+		{	
+
+			var author = _context.Authors.SingleOrDefault(a=>a.Id == bookDTO.AuthorId);
+
+			if (author == null)
+			{
+				return null;
+			}
+
+			var book = new Book();
+			book.Author = author;
+			//book.AuthorId = author.Id;
+			book.Title = bookDTO.Title;
+			book.Description = bookDTO.Description;
+			book.Categorie = bookDTO.Categorie;
+			book.Created = bookDTO.Created;
+
 			await _context.Books.AddAsync(book);
+
 			await _context.SaveChangesAsync();
 			return book;
 		}
@@ -34,13 +52,13 @@ namespace TestAPI0924.Services
 
 		public async Task<IEnumerable<Book>> GetAllBooksAsync()
 		{
-			var books = await _context.Books.ToListAsync();
+			var books = await _context.Books.Include(b=>b.Author).ToListAsync();
 			return books;
 		}
 
 		public async Task<Book> GetBookByIdAsync(int id)
 		{
-			var book = await _context.Books.SingleOrDefaultAsync(book=> book.Id == id);
+			var book = await _context.Books.Include(b=>b.Author).SingleOrDefaultAsync(book=> book.Id == id);
 			return book;
 		}
 
@@ -52,7 +70,13 @@ namespace TestAPI0924.Services
 				return null;
 			}
 
-			updateBook.Author = book.Author;
+			var udpateAuthor = await _context.Authors.SingleOrDefaultAsync(a=>a.Id==book.AuthorId);
+			if (udpateAuthor is null)
+			{
+				return null;
+			}
+
+			updateBook.Author = udpateAuthor;
 			updateBook.Title = book.Title;
 			updateBook.Description = book.Description;
 			updateBook.Categorie = book.Categorie;
